@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Actions</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Form Actions Test</h1>
+
+        <form action="/ok" method="post">
+            <button type="submit">OK 1 (POST /ok)</button>
+            <button type="submit" formmethod="get">OK 2 (GET /ok)</button>
+            <button type="submit" formaction="/ok?x">OK 3 (POST /ok?x)</button>
+        </form>
+
+        <div class="result-section">
+            <label>Kết quả:</label>
+            <span th:text="${result}">Chưa có kết quả</span>
+        </div>
+    </div>
+</body>
+
+</html>

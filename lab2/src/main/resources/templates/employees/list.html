@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <h1> message: <span th:text="${message}"></span></h1>
+    <h1> address: <span th:text="${address}"></span></h1>
+    <h1> employee id: <span th:text="${employee.id}"></span></h1>
+    <h1> employee name: <span th:text="${employee.name}"></span></h1>
+    <h2> url: <a th:href="${url}">Link</a></h2>
+    <hr>
+    <h2>Employees details</h2>
+    <ul>
+        <li>id:<span th:text="${employee.id}"></span></li>
+        <li>name:<span th:text="${employee.name}"></span></li>
+    </ul>
+    <h2>Employees details 2</h2>
+    <ul th:object="${employee}">
+        <li>id:<span th:text="*{id}"></span></li>
+        <li>name:<span th:text="*{name}"></span></li>
+    </ul>
+</body>
+
+</html>
