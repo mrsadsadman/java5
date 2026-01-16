@@ -1,0 +1,74 @@
+/* Minimal shared CSS for forms and result pages */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f7fb;
+    color: #222;
+    padding: 16px
+}
+
+.container,
+.login-card,
+.register-card {
+    max-width: 520px;
+    margin: 20px auto;
+    background: #fff;
+    padding: 18px;
+    border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06)
+}
+
+h1 {
+    font-size: 18px;
+    margin: 0 0 12px
+}
+
+.form-group {
+    margin-bottom: 12px
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    font-size: 13px
+}
+
+input,
+select,
+button {
+    width: 100%;
+    padding: 9px;
+    border: 1px solid #e3e6ee;
+    border-radius: 6px;
+    font-size: 14px
+}
+
+button {
+    background: #4caf50;
+    color: #fff;
+    border: 0
+}
+
+a.btn {
+    display: inline-block;
+    padding: 8px 12px;
+    background: #4caf50;
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    background: #fbfffb;
+    border-radius: 6px
+}
+
+@media(max-width:480px) {
+    .container {
+        padding: 12px
+    }
+}

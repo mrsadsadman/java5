@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/simple.css">
+</head>
+
+<body>
+    <div class="register-container">
+        <div class="register-card">
+            <div class="register-header">
+                <i class="fas fa-user-plus"></i>
+                <h1>Đăng Ký</h1>
+                <p>Tạo tài khoản mới</p>
+            </div>
+
+            <form action="/register/save" method="post" class="register-form" id="registerForm">
+                <div th:if="${message}" class="error-message">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span th:text="${message}"></span>
+                </div>
+
+                <div th:if="${success}" class="success-message">
+                    <i class="fas fa-check-circle"></i>
+                    <span th:text="${success}"></span>
+                </div>
+
+
+
+                <div class="form-group">
+                    <label for="username"><i class="fas fa-user"></i> Tên Đăng Nhập</label>
+                    <input type="text" id="username" name="username" required placeholder="Nhập tên đăng nhập ">
+                    <div class="input-border"></div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="password"><i class="fas fa-lock"></i> Mật Khẩu</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="password" name="password" required placeholder="Nhập mật khẩu">
+                            <button type="button" class="toggle-password" onclick="togglePassword('password')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="input-border"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword"><i class="fas fa-lock"></i> Xác Nhận Mật Khẩu</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="confirmPassword" name="confirmPassword" required
+                                placeholder="Xác nhận mật khẩu">
+                            <button type="button" class="toggle-password" onclick="togglePassword('confirmPassword')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="input-border"></div>
+                    </div>
+                </div>
+
+
+
+                <button type="submit" class="register-btn">
+                    <i class="fas fa-user-check"></i> Đăng Ký
+                </button>
+
+            </form>
+
+            <div th:if="${username}" class="registration-summary">
+                <div class="summary-header">
+                    <i class="fas fa-user-check"></i>
+                    <h3>Thông Tin Đăng Ký</h3>
+                </div>
+                <div class="summary-content">
+                    <div class="summary-item">
+                        <span class="summary-label"><i class="fas fa-user"></i> Tên Đăng Nhập:</span>
+                        <span class="summary-value" th:text="${username}"></span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label"><i class="fas fa-lock"></i> Mật Khẩu:</span>
+                        <span class="summary-value">••••••••</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label"><i class="fas fa-check"></i> Trạng Thái:</span>
+                        <span class="summary-value success"><i class="fas fa-check-circle"></i> Đã Đăng Ký</span>
+                    </div>
+                </div>
+                <a href="/form" class="btn-login-now">
+                    <i class="fas fa-sign-in-alt"></i> Đăng Nhập Ngay
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function togglePassword(fieldId) {
+            const passwordField = document.getElementById(fieldId);
+            const toggleBtn = event.target.closest('.toggle-password');
+            const icon = toggleBtn.querySelector('i');
+
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordField.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

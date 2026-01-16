@@ -1,0 +1,18 @@
+package edu.poly.Hello.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class HelloController {
+
+    @GetMapping("/hello")
+    public String hello(Model model) {
+        model.addAttribute("message", "Hello, Spring MVC!");
+        model.addAttribute("title", "Greeting Page");
+        model.addAttribute("welcome", "Welcome to the Spring MVC Hello World Example");
+        return "hello/hello";
+    }
+
+}
