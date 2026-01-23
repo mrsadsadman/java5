@@ -1,0 +1,14 @@
+<nav xmlns:th="http://www.thymeleaf.org" class="bg-light">
+    <div class="container py-2 d-flex justify-content-between align-items-center">
+        <div>
+            <a href="/home/index" th:text="#{menu.home}" class="me-3 text-decoration-none text-dark">Home Page</a>
+            <a href="/home/about" th:text="#{menu.about}" class="me-3 text-decoration-none text-dark">About Us</a>
+            <a href="/staff/create/form" class="me-3 text-decoration-none text-dark">Create Staff</a>
+
+        </div>
+        <div>
+            <a href="?lang=vi" class="me-2">Tiếng Việt</a>
+            <a href="?lang=en">English</a>
+        </div>
+    </div>
+</nav>

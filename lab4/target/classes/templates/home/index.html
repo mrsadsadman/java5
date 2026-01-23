@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/shared/layout::view(~{::title}, ~{::article})}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="#{menu.home}">Home Page</title>
+</head>
+
+<body>
+    <article>
+        <h1 th:text="#{menu.home}">Home Page</h1>
+        <p>Welcome to our online shopping website!</p>
+        <img src="/static/photos/photo.jpg" alt="Home Photo" style="max-width: 100%; height: auto;">
+    </article>
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/shared/layout::view(~{::title}, ~{::article})}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validation Result</title>
+    <style>
+        .message {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .staff-info {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+
+        .back-link {
+            margin-top: 20px;
+        }
+
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <article>
+        <h2>Staff Validation Result</h2>
+
+        <div class="message" th:if="${staff.salary != null}"
+            th:classappend="${staff.salary != null ? 'success' : 'error'}">
+            <i th:text="${message}"></i>
+        </div>
+
+        <div class="staff-info" th:if="${staff.salary != null}">
+            <h3>Staff Information:</h3>
+            <p><strong>Email:</strong> <span th:text="${staff.id}"></span></p>
+            <p><strong>Full Name:</strong> <span th:text="${staff.fullname}"></span></p>
+            <p><strong>Gender:</strong> <span th:text="${staff.gender ? 'Nam' : 'Nữ'}"></span></p>
+            <p><strong>Birthday:</strong> <span th:text="${#dates.format(staff.birthday, 'MM/dd/yyyy')}"></span></p>
+            <p><strong>Salary:</strong> <span th:text="${staff.salary}"></span></p>
+            <p><strong>Level:</strong> <span th:text="${staff.level}"></span></p>
+            <p><strong>Photo:</strong> <span th:text="${staff.photo}"></span></p>
+        </div>
+
+        <div class="back-link">
+            <a href="/staff/create/form">Back to Create Staff Form</a>
+        </div>
+    </article>
+</body>
+
+</html>
