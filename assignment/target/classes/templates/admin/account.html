@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="layout :: layout(~{::title}, ~{::section})">
+
+<head>
+    <title>Admin - Accounts</title>
+</head>
+
+<body>
+    <section>
+        <h3>Account Management</h3>
+        <table class="table table-bordered">
+            <tr>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td>admin@gmail.com</td>
+                <td>ADMIN</td>
+                <td>Active</td>
+            </tr>
+        </table>
+    </section>
+</body>
+
+</html>

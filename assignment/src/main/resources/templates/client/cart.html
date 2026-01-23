@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="layout :: layout(~{::title}, ~{::section})">
+
+<head>
+    <title>Cart</title>
+</head>
+
+<body>
+    <section>
+        <h3>Your Cart</h3>
+        <table class="table table-bordered">
+            <tr>
+                <th>Product</th>
+                <th>Qty</th>
+                <th>Price</th>
+            </tr>
+            <tr>
+                <td>Demo Product</td>
+                <td>1</td>
+                <td>$100</td>
+            </tr>
+        </table>
+        <button class="btn btn-success">Checkout</button>
+    </section>
+</body>
+
+</html>

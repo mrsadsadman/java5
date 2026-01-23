@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="layout :: layout(~{::title}, ~{::section})">
+
+<head>
+    <title>Home</title>
+</head>
+
+<body>
+    <section>
+        <div class="text-center">
+            <h1 class="mb-3">🛒 Welcome to ABC Shop</h1>
+            <p class="text-muted">Simple shopping website using Spring Boot</p>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-4" th:each="i : ${#numbers.sequence(1,3)}">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Product [[${i}]]</h5>
+                        <p class="card-text">Demo product description</p>
+                        <a class="btn btn-primary btn-sm">View</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

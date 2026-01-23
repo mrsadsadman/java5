@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="layout(title, content)">
+
+<head>
+    <meta charset="UTF-8">
+    <title th:replace="${title}">ABC Shop</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="/">ABC Shop</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainMenu">
+
+                <!-- CLIENT MENU -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/products">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/cart">Cart</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/checkout">Checkout</a>
+                    </li>
+                </ul>
+
+                <!-- AUTH + ADMIN MENU -->
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+
+                    <!-- ADMIN DROPDOWN -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-warning" href="#" role="button"
+                            data-bs-toggle="dropdown">
+                            Admin
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="/admin">Dashboard</a></li>
+                            <li><a class="dropdown-item" href="/admin/products">Products</a></li>
+                            <li><a class="dropdown-item" href="/admin/orders">Orders</a></li>
+                            <li><a class="dropdown-item" href="/admin/accounts">Accounts</a></li>
+                            <li><a class="dropdown-item" href="/admin/reports">Reports</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== CONTENT ===== -->
+    <div class="container my-4" th:replace="${content}"></div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="bg-dark text-light text-center p-3 mt-5">
+        © 2026 ABC Shop | Spring Boot + Thymeleaf + Bootstrap 5
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="layout :: layout(~{::title}, ~{::section})">
+
+<head>
+    <title>Admin - Orders</title>
+</head>
+
+<body>
+    <section>
+        <h3>Order Management</h3>
+
+        <table class="table table-striped">
+            <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Total</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td>O01</td>
+                <td>John</td>
+                <td>$200</td>
+                <td>Completed</td>
+            </tr>
+        </table>
+    </section>
+</body>
+
+</html>
