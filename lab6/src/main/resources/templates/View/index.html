@@ -1,0 +1,49 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lab 6 - Category</title>
+</head>
+
+<body>
+    <h1>Category List</h1>
+
+    <form th:action="@{/categories/create}" method="post" th:object="${item}">
+        ID:
+        <input th:field="*{id}" required />
+
+        Name:
+        <input th:field="*{name}" required />
+
+        <button formaction="/categories/create">Add</button>
+        <button formaction="/categories/update">Update</button>
+    </form>
+
+    <hr />
+
+    <table border="1" width="50%">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Action</th>
+        </tr>
+
+        <tr th:each="c : ${categories}">
+            <td th:text="${c.id}"></td>
+            <td th:text="${c.name}"></td>
+            <td>
+                <a th:href="@{/categories/edit/{id}(id=${c.id})}">Edit</a>
+                |
+                <a th:href="@{/categories/delete/{id}(id=${c.id})}" onclick="return confirm('Delete this category?')">
+                    Delete
+                </a>
+            </td>
+        </tr>
+    </table>
+</body>
+<div style="margin-bottom:15px;">
+    <a href="/" style="font-weight:bold;">🏠 Home</a>
+</div>
+
+</html>

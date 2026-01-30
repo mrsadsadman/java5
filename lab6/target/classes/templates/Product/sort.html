@@ -1,0 +1,20 @@
+<h3>SORTING BY [[${field}]]</h3>
+
+<table border="1" width="100%">
+    <tr>
+        <th><a href="/product/sort?field=id">Id</a></th>
+        <th><a href="/product/sort?field=name">Name</a></th>
+        <th><a href="/product/sort?field=price">Price</a></th>
+        <th><a href="/product/sort?field=createDate">Date</a></th>
+    </tr>
+
+    <tr th:each="item : ${items}">
+        <td th:text="${item.id}"></td>
+        <td th:text="${item.name}"></td>
+        <td th:text="${item.price}"></td>
+        <td th:text="${item.createDate}"></td>
+    </tr>
+</table>
+<div style="margin-bottom:15px;">
+    <a href="/" style="font-weight:bold;">🏠 Home</a>
+</div>

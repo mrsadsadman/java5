@@ -1,0 +1,29 @@
+<h1>Category Pagination</h1>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+    </tr>
+    <tr th:each="c : ${page.content}">
+        <td th:text="${c.id}"></td>
+        <td th:text="${c.name}"></td>
+    </tr>
+</table>
+
+<div>
+    <a th:if="${page.hasPrevious()}" th:href="@{/categories/page(page=${page.number - 1})}">
+        Previous
+    </a>
+
+    <span>Page [[${page.number + 1}]] / [[${page.totalPages}]]</span>
+
+    <a th:if="${page.hasNext()}" th:href="@{/categories/page(page=${page.number + 1})}">
+        Next
+    </a>
+</div>
+
+<a href="/categories">Back to CRUD</a>
+<div style="margin-bottom:15px;">
+    <a href="/" style="font-weight:bold;">🏠 Home</a>
+</div>

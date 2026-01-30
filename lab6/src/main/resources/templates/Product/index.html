@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Product CRUD</title>
+</head>
+
+<body>
+
+    <h3>PRODUCT CRUD</h3>
+
+    <form th:action="@{/product/create}" method="post">
+        <input type="hidden" th:field="${item.id}">
+        Name: <input th:field="${item.name}"><br>
+        Price: <input th:field="${item.price}"><br>
+        <button>Create</button>
+        <button formaction="/product/update">Update</button>
+    </form>
+
+    <hr>
+
+    <table border="1" width="100%">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Date</th>
+            <th>Action</th>
+        </tr>
+
+        <tr th:each="p : ${items}">
+            <td th:text="${p.id}"></td>
+            <td th:text="${p.name}"></td>
+            <td th:text="${p.price}"></td>
+            <td th:text="${p.createDate}"></td>
+            <td>
+                <a th:href="@{/product/edit/{id}(id=${p.id})}">Edit</a>
+                <a th:href="@{/product/delete/{id}(id=${p.id})}">Delete</a>
+            </td>
+        </tr>
+    </table>
+    <div style="margin-bottom:15px;">
+        <a href="/" style="font-weight:bold;">🏠 Home</a>
+    </div>
+</body>
+
+</html>
