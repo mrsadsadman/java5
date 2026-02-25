@@ -1,19 +1,18 @@
--- Tạo database
+DROP DATABASE ABCShopDB;
 CREATE DATABASE ABCShopDB;
 GO
 
 USE ABCShopDB;
 GO
 
--- Bảng Roles
+-- Roles
 CREATE TABLE Roles (
     id INT PRIMARY KEY IDENTITY(1,1),
     name NVARCHAR(50) NOT NULL,
     description NVARCHAR(255)
 );
-GO
 
--- Bảng Accounts
+-- Accounts
 CREATE TABLE Accounts (
     id INT PRIMARY KEY IDENTITY(1,1),
     username NVARCHAR(50) UNIQUE NOT NULL,
@@ -28,18 +27,17 @@ CREATE TABLE Accounts (
     role_id INT FOREIGN KEY REFERENCES Roles(id),
     created_date DATETIME DEFAULT GETDATE()
 );
-GO
-
--- Bảng Categories
+SELECT DB_ID('ABCShopDB');
+SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'accounts';
+-- Categories
 CREATE TABLE Categories (
     id INT PRIMARY KEY IDENTITY(1,1),
     name NVARCHAR(100) NOT NULL,
     description NVARCHAR(255),
     image NVARCHAR(255)
 );
-GO
 
--- Bảng Products
+-- Products
 CREATE TABLE Products (
     id INT PRIMARY KEY IDENTITY(1,1),
     name NVARCHAR(200) NOT NULL,
@@ -52,9 +50,8 @@ CREATE TABLE Products (
     created_date DATETIME DEFAULT GETDATE(),
     available BIT DEFAULT 1
 );
-GO
 
--- Bảng Orders
+-- Orders
 CREATE TABLE Orders (
     id INT PRIMARY KEY IDENTITY(1,1),
     account_id INT FOREIGN KEY REFERENCES Accounts(id),
@@ -65,9 +62,8 @@ CREATE TABLE Orders (
     status NVARCHAR(50) DEFAULT 'Pending',
     notes NVARCHAR(500)
 );
-GO
 
--- Bảng OrderDetails
+-- OrderDetails
 CREATE TABLE OrderDetails (
     id INT PRIMARY KEY IDENTITY(1,1),
     order_id INT FOREIGN KEY REFERENCES Orders(id),
@@ -77,33 +73,20 @@ CREATE TABLE OrderDetails (
     discount DECIMAL(5,2) DEFAULT 0,
     total DECIMAL(18,2) NOT NULL
 );
-GO
 
 -- Insert dữ liệu mẫu
 INSERT INTO Roles (name, description) VALUES
 ('ADMIN', 'Quản trị hệ thống'),
 ('USER', 'Người dùng thông thường');
-GO
 
--- Insert admin account (password: admin123)
+-- Insert accounts with plain text password '123'
 INSERT INTO Accounts (username, password, fullname, email, phone, address, activated, role_id) VALUES
-('admin', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iK5KZD8a', 
- 'Admin System', 'admin@abcshop.com', '0123456789', 'Hà Nội', 1, 1);
-GO
+('admin', '123', 'Admin System', 'admin@abcshop.com', '0123456789', 'Hà Nội', 1, 1),
+('user1', '123', 'Nguyễn Văn An', 'user1@email.com', '0987654321', 'TP.HCM', 1, 2),
+('user2', '123', 'Trần Thị Bình', 'user2@email.com', '0912345678', 'Đà Nẵng', 1, 2),
+('user3', '123', 'Lê Văn Cường', 'user3@email.com', '0934567890', 'Hải Phòng', 1, 2),
+('user4', '123', 'Phạm Thị Dung', 'user4@email.com', '0945678901', 'Cần Thơ', 1, 2);
 
--- Insert user accounts
-INSERT INTO Accounts (username, password, fullname, email, phone, address, activated, role_id) VALUES
-('user1', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iK5KZD8a', 
- 'Nguyễn Văn An', 'user1@email.com', '0987654321', 'TP.HCM', 1, 2),
-('user2', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iK5KZD8a',
- 'Trần Thị Bình', 'user2@email.com', '0912345678', 'Đà Nẵng', 1, 2),
-('user3', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iK5KZD8a',
- 'Lê Văn Cường', 'user3@email.com', '0934567890', 'Hải Phòng', 1, 2),
-('user4', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iK5KZD8a',
- 'Phạm Thị Dung', 'user4@email.com', '0945678901', 'Cần Thơ', 1, 2);
-GO
-
--- Insert categories
 INSERT INTO Categories (name, description) VALUES
 ('Điện thoại', 'Các loại điện thoại thông minh'),
 ('Laptop', 'Máy tính xách tay các loại'),
@@ -115,9 +98,7 @@ INSERT INTO Categories (name, description) VALUES
 ('Máy ảnh', 'Máy ảnh kỹ thuật số'),
 ('TV', 'Tivi thông minh'),
 ('Gaming', 'Thiết bị chơi game');
-GO
 
--- Insert products (200 sản phẩm mẫu - chỉ liệt kê 10)
 INSERT INTO Products (name, price, discount, quantity, description, category_id, image) VALUES
 ('iPhone 15 Pro Max', 29990000, 5, 50, 'iPhone 15 Pro Max 256GB', 1, 'iphone15.jpg'),
 ('Samsung Galaxy S24 Ultra', 24990000, 7, 40, 'Samsung Galaxy S24 Ultra 512GB', 1, 'samsung24.jpg'),
@@ -129,11 +110,4 @@ INSERT INTO Products (name, price, discount, quantity, description, category_id,
 ('Sony WH-1000XM5', 7990000, 5, 60, 'Tai nghe chống ồn Sony', 5, 'sony.jpg'),
 ('Apple Watch Ultra 2', 19990000, 2, 40, 'Apple Watch Ultra 2', 7, 'applewatch.jpg'),
 ('PlayStation 5', 11990000, 15, 50, 'Máy chơi game PS5', 10, 'ps5.jpg');
--- Thêm 190 sản phẩm khác...
-GO
-
--- Tạo indexes
-CREATE INDEX idx_products_category ON Products(category_id);
-CREATE INDEX idx_orders_account ON Orders(account_id);
-CREATE INDEX idx_orderdetails_order ON OrderDetails(order_id);
-GO
+-- Add more products as needed...
