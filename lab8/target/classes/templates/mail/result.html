@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Kết quả</title>
+</head>
+
+<body>
+    <h3 th:text="${message}">Kết quả</h3>
+    <a th:href="@{/mail/form}">Gửi email khác</a> | <a th:href="@{/}">Trang chủ</a>
+</body>
+
+</html>

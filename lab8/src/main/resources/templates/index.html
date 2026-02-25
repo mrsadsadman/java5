@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>LAB8 - Home</title>
+</head>
+
+<body>
+    <h1>LAB8: SCHEDULE TASKS & INTERCEPTOR</h1>
+    <ul>
+        <li><a th:href="@{/mail/form}">Bài 1-2-3: Gửi email (trực tiếp / hàng đợi)</a></li>
+        <li><a th:href="@{/auth/login}">Bài 4: Đăng nhập</a></li>
+        <li><a th:href="@{/admin/home/index}">Bài 5: Trang admin (công khai)</a></li>
+        <li><a th:href="@{/admin/dashboard}">Bài 5: Admin dashboard (yêu cầu admin)</a></li>
+        <li><a th:href="@{/account/edit-profile}">Bài 5: Chỉnh sửa profile (yêu cầu đăng nhập)</a></li>
+        <li><a th:href="@{/order/list}">Bài 5: Xem đơn hàng (yêu cầu đăng nhập)</a></li>
+        <li>Bài 6: LogInterceptor sẽ ghi log ra console khi truy cập các đường dẫn bảo mật.</li>
+    </ul>
+</body>
+
+</html>
