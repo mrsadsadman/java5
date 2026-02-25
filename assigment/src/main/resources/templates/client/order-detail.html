@@ -1,0 +1,84 @@
+.
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::section})}">
+
+<head>
+    <title>Order #[[${order.id}]] - ABC Shop</title>
+</head>
+
+<body>
+    <section>
+        <div th:fragment="content">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a th:href="@{/order/list}">My Orders</a></li>
+                    <li class="breadcrumb-item active">Order #[[${order.id}]]</li>
+                </ol>
+            </nav>
+
+            <h1 class="mb-4">Order Details</h1>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header bg-primary text-white">Order Information</div>
+                        <div class="card-body">
+                            <p><strong>Order ID:</strong> #[[${order.id}]]</p>
+                            <p><strong>Date:</strong> [[${#dates.format(order.orderDate, 'dd/MM/yyyy HH:mm')}]]</p>
+                            <p><strong>Status:</strong>
+                                <span class="badge" th:classappend="${{
+          'Pending':'bg-warning',
+          'Confirmed':'bg-info',
+          'Shipped':'bg-primary',
+          'Delivered':'bg-success'
+      }[order.status] ?: 'bg-secondary'}" th:text="${order.status}">
+                                </span>
+                            </p>
+                            <p><strong>Total Amount:</strong> <span class="text-danger fw-bold"
+                                    th:text="${#numbers.formatDecimal(order.totalAmount, 1, 'COMMA', 2, 'POINT')} + ' VND'">Total</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header bg-primary text-white">Delivery Information</div>
+                        <div class="card-body">
+                            <p><strong>Address:</strong> [[${order.address}]]</p>
+                            <p><strong>Phone:</strong> [[${order.phone}]]</p>
+                            <p><strong>Notes:</strong> [[${order.notes} ?: 'None']]</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Items</h3>
+            <table class="table table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Discount</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="detail : ${details}">
+                        <td th:text="${detail.product.name}">Product</td>
+                        <td th:text="${#numbers.formatDecimal(detail.price, 1, 'COMMA', 2, 'POINT')} + ' VND'">Price
+                        </td>
+                        <td th:text="${detail.quantity}">Qty</td>
+                        <td th:text="${detail.discount} + '%'">Discount</td>
+                        <td th:text="${#numbers.formatDecimal(detail.total, 1, 'COMMA', 2, 'POINT')} + ' VND'">Subtotal
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <a th:href="@{/order/list}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to Orders</a>
+        </div>
+    </section>
+</body>
+
+</html>

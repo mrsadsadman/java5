@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::section})}">
+
+<head>
+    <title>My Orders - ABC Shop</title>
+</head>
+
+<body>
+    <section>
+        <div th:fragment="content">
+
+            <h1 class="mb-4"><i class="fas fa-box"></i> My Orders</h1>
+
+            <div th:if="${orders.isEmpty()}" class="alert alert-info">
+                You haven't placed any orders yet.
+            </div>
+
+            <div th:if="${!orders.isEmpty()}">
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Date</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr th:each="order : ${orders}">
+                            <td>#[[${order.id}]]</td>
+
+                            <td th:text="${#dates.format(order.orderDate,'dd/MM/yyyy HH:mm')}"></td>
+
+                            <td th:text="${#numbers.formatDecimal(order.totalAmount,1,'COMMA',2,'POINT')} + ' VND'">
+                            </td>
+
+                            <td>
+                                <span class="badge" th:classappend="${{
+                            'Pending':'bg-warning',
+                            'Confirmed':'bg-info',
+                            'Shipped':'bg-primary',
+                            'Delivered':'bg-success'
+                          }[order.status] ?: 'bg-secondary'}" th:text="${order.status}">
+                                </span>
+                            </td>
+
+                            <td>
+                                <a th:href="@{/order/detail/{id}(id=${order.id})}"
+                                    class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-eye"></i> View
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Pagination -->
+                <nav th:if="${totalPages > 1}">
+                    <ul class="pagination">
+
+                        <li class="page-item" th:classappend="${currentPage == 0} ? ' disabled'">
+                            <a class="page-link" th:href="@{/order/list(page=${currentPage-1})}">
+                                Previous
+                            </a>
+                        </li>
+
+                        <li class="page-item" th:each="i : ${#numbers.sequence(0,totalPages-1)}"
+                            th:classappend="${i == currentPage} ? ' active'">
+                            <a class="page-link" th:href="@{/order/list(page=${i})}" th:text="${i+1}">
+                            </a>
+                        </li>
+
+                        <li class="page-item" th:classappend="${currentPage == totalPages-1} ? ' disabled'">
+                            <a class="page-link" th:href="@{/order/list(page=${currentPage+1})}">
+                                Next
+                            </a>
+                        </li>
+
+                    </ul>
+                </nav>
+
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
+
+<head>
+    <title>Dashboard Admin</title>
+</head>
+
+<body>
+    <section layout:fragment="content">
+        <h1 class="mb-4">Bảng điều khiển</h1>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Tổng sản phẩm</h5>
+                        <p class="card-text display-6" th:text="${totalProducts}">100</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-white bg-success mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Tổng đơn hàng</h5>
+                        <p class="card-text display-6" th:text="${totalOrders}">50</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-white bg-warning mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Tổng người dùng</h5>
+                        <p class="card-text display-6" th:text="${totalUsers}">20</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-white bg-info mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Doanh thu</h5>
+                        <p class="card-text display-6"
+                            th:text="${#numbers.formatDecimal(totalRevenue, 0, 'COMMA', 0, 'POINT') + ' ₫'}">10,000,000
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Có thể thêm biểu đồ -->
+    </section>
+</body>
+
+</html>

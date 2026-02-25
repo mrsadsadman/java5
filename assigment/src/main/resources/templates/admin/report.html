@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
+
+<head>
+    <title>Thống kê</title>
+</head>
+
+<body>
+    <section layout:fragment="content">
+        <h1 class="mb-4">Thống kê doanh thu</h1>
+        <ul class="nav nav-tabs" id="reportTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="revenue-tab" data-bs-toggle="tab" data-bs-target="#revenue"
+                    type="button">Doanh thu theo loại</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="vip-tab" data-bs-toggle="tab" data-bs-target="#vip" type="button">Top 10
+                    khách hàng VIP</button>
+            </li>
+        </ul>
+        <div class="tab-content mt-3">
+            <div class="tab-pane fade show active" id="revenue">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Loại hàng</th>
+                            <th>Tổng doanh thu</th>
+                            <th>Tổng số lượng</th>
+                            <th>Giá cao nhất</th>
+                            <th>Giá thấp nhất</th>
+                            <th>Giá trung bình</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="row : ${revenueData}">
+                            <td th:text="${row.categoryName}">Điện thoại</td>
+                            <td th:text="${#numbers.formatDecimal(row.totalRevenue, 0, 'COMMA', 0, 'POINT') + ' ₫'}">
+                            </td>
+                            <td th:text="${row.totalQuantity}">10</td>
+                            <td th:text="${#numbers.formatDecimal(row.maxPrice, 0, 'COMMA', 0, 'POINT') + ' ₫'}"></td>
+                            <td th:text="${#numbers.formatDecimal(row.minPrice, 0, 'COMMA', 0, 'POINT') + ' ₫'}"></td>
+                            <td th:text="${#numbers.formatDecimal(row.avgPrice, 0, 'COMMA', 0, 'POINT') + ' ₫'}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="vip">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Tên khách hàng</th>
+                            <th>Tổng tiền đã mua</th>
+                            <th>Ngày mua đầu tiên</th>
+                            <th>Ngày mua sau cùng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="cust : ${vipCustomers}">
+                            <td th:text="${cust.customerName}">Nguyễn Văn A</td>
+                            <td th:text="${#numbers.formatDecimal(cust.totalSpent, 0, 'COMMA', 0, 'POINT') + ' ₫'}">
+                            </td>
+                            <td th:text="${#dates.format(cust.firstPurchase, 'dd/MM/yyyy')}">01/01/2025</td>
+                            <td th:text="${#dates.format(cust.lastPurchase, 'dd/MM/yyyy')}">01/01/2025</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

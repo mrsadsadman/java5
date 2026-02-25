@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
+
+<head>
+    <title>Danh sách sản phẩm</title>
+</head>
+
+<body>
+    <section layout:fragment="content">
+        <h1 class="mb-4">Tất cả sản phẩm</h1>
+        <div class="row">
+            <div class="col-md-3">
+                <!-- Bộ lọc danh mục -->
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        Danh mục
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item" th:each="cat : ${categories}">
+                            <a th:href="@{'/product?category=' + ${cat.id}}" th:text="${cat.name}">Điện thoại</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-4 mb-4" th:each="product : ${products}">
+                        <div class="card h-100">
+                            <img th:src="@{'/images/' + ${product.image}}" class="card-img-top" alt="Product">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${product.name}">Tên sản phẩm</h5>
+                                <p class="card-text">
+                                    <span class="text-danger fw-bold"
+                                        th:text="${#numbers.formatDecimal(product.price * (1 - product.discount/100), 0, 'COMMA', 0, 'POINT') + ' ₫'}"></span>
+                                    <span th:if="${product.discount > 0}"
+                                        class="text-muted text-decoration-line-through ms-2"
+                                        th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') + ' ₫'}"></span>
+                                </p>
+                                <a th:href="@{'/product/' + ${product.id}}" class="btn btn-primary btn-sm">Xem chi
+                                    tiết</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Phân trang -->
+                <nav th:if="${totalPages > 1}">
+                    <ul class="pagination">
+                        <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                            <a class="page-link"
+                                th:href="@{/product(page=${currentPage - 1}, category=${param.category})}">Trước</a>
+                        </li>
+                        <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages-1)}"
+                            th:classappend="${i == currentPage} ? 'active'">
+                            <a class="page-link" th:href="@{/product(page=${i}, category=${param.category})}"
+                                th:text="${i+1}">1</a>
+                        </li>
+                        <li class="page-item" th:classappend="${currentPage == totalPages-1} ? 'disabled'">
+                            <a class="page-link"
+                                th:href="@{/product(page=${currentPage + 1}, category=${param.category})}">Sau</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

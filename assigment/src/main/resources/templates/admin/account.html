@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::section})}">
+
+<head>
+    <title>Manage Accounts - Admin</title>
+</head>
+
+<body>
+    <section>
+        <div th:fragment="content">
+            <h1 class="mb-4"><i class="fas fa-users"></i> Account Management</h1>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">Add/Edit Account</h5>
+                        </div>
+                        <div class="card-body">
+                            <form th:action="@{/admin/account/create}" method="post" th:object="${account}">
+                                <input type="hidden" name="id" th:value="*{id}">
+                                <div class="mb-3">
+                                    <label for="username" class="form-label">Username</label>
+                                    <input type="text" class="form-control" id="username" name="username"
+                                        th:value="*{username}" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="password" name="password"
+                                        th:value="*{password}" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="fullname" class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" id="fullname" name="fullname"
+                                        th:value="*{fullname}" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" name="email" th:value="*{email}"
+                                        required>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="phone" class="form-label">Phone</label>
+                                        <input type="tel" class="form-control" id="phone" name="phone"
+                                            th:value="*{phone}">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="role" class="form-label">Role</label>
+                                        <select class="form-control" id="role" name="role.id">
+                                            <option th:each="role : ${roles}" th:value="${role.id}"
+                                                th:text="${role.name}" th:selected="${account?.role?.id == role.id}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="address" class="form-label">Address</label>
+                                    <input type="text" class="form-control" id="address" name="address"
+                                        th:value="*{address}">
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input type="checkbox" class="form-check-input" id="activated" name="activated"
+                                        th:checked="*{activated}">
+                                    <label class="form-check-label" for="activated">Activated</label>
+                                </div>
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
+                                <a th:href="@{/admin/account/index}" class="btn btn-secondary">Reset</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header bg-dark text-white">
+                            <h5 class="mb-0">Account List</h5>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Username</th>
+                                        <th>Full Name</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
+                                        <th>Activated</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="acc : ${accounts}">
+                                        <td>[[${acc.id}]]</td>
+                                        <td>[[${acc.username}]]</td>
+                                        <td>[[${acc.fullname}]]</td>
+                                        <td>[[${acc.email}]]</td>
+                                        <td>[[${acc.role.name}]]</td>
+                                        <td>
+                                            <span th:if="${acc.activated}" class="badge bg-success">Yes</span>
+                                            <span th:if="${!acc.activated}" class="badge bg-danger">No</span>
+                                        </td>
+                                        <td>
+                                            <a th:href="@{/admin/account/edit/{id}(id=${acc.id})}"
+                                                class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                                            <a th:href="@{/admin/account/delete/{id}(id=${acc.id})}"
+                                                class="btn btn-sm btn-danger"
+                                                onclick="return confirm('Are you sure?')"><i
+                                                    class="fas fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- Pagination -->
+                            <nav th:if="${totalPages > 1}">
+                                <ul class="pagination">
+                                    <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                                        <a class="page-link"
+                                            th:href="@{/admin/account/index(page=${currentPage-1})}">Previous</a>
+                                    </li>
+                                    <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages-1)}"
+                                        th:classappend="${i == currentPage} ? 'active'">
+                                        <a class="page-link" th:href="@{/admin/account/index(page=${i})}"
+                                            th:text="${i+1}">1</a>
+                                    </li>
+                                    <li class="page-item" th:classappend="${currentPage == totalPages-1} ? 'disabled'">
+                                        <a class="page-link"
+                                            th:href="@{/admin/account/index(page=${currentPage+1})}">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

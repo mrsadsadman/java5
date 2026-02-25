@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
+
+<head>
+    <title>ABC Shop</title>
+</head>
+
+<body>
+    <section layout:fragment="content">
+        <div class="text-center">
+            <h1>Chào mừng đến với ABC Shop</h1>
+            <p class="lead">Mua sắm thỏa thích với hàng ngàn sản phẩm chất lượng</p>
+            <a th:href="@{/product}" class="btn btn-primary btn-lg">Xem sản phẩm</a>
+        </div>
+    </section>
+</body>
+
+</html>
