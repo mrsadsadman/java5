@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::section})}">
+
+<head>
+    <title>Manage Orders - Admin</title>
+</head>
+
+<body>
+    <section>
+        <div th:fragment="content">
+            <h1 class="mb-4"><i class="fas fa-truck"></i> Order Management</h1>
+
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">Order List</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr th:if="${orders == null or #lists.isEmpty(orders)}">
+                                <td colspan="6" class="text-center text-muted">
+                                    No orders found.
+                                </td>
+                            </tr>
+
+                            <tr th:each="order : ${orders}">
+                                <!-- ID -->
+                                <td th:text="'#' + ${order.id}"></td>
+
+                                <!-- Customer -->
+                                <td th:text="${order.account != null and order.account.fullname != null 
+        ? order.account.fullname 
+        : 'N/A'}">
+                                </td>
+
+                                <!-- Date -->
+                                <td th:text="${order.orderDate != null 
+        ? #dates.format(order.orderDate, 'dd/MM/yyyy HH:mm') 
+        : 'N/A'}">
+                                </td>
+
+                                <!-- Total -->
+                                <td th:text="${order.totalAmount != null 
+        ? #numbers.formatDecimal(order.totalAmount, 1, 'COMMA', 2, 'POINT') 
+        : '0.00'}">
+                                </td>
+
+                                <!-- Status -->
+                                <td>
+                                    <span th:class="${
+    order.status == 'Pending' ? 'bg-warning' :
+    order.status == 'Confirmed' ? 'bg-info' :
+    order.status == 'Shipped' ? 'bg-primary' :
+    order.status == 'Delivered' ? 'bg-success' :
+    order.status == 'Cancelled' ? 'bg-danger' :
+    'bg-secondary'
+}">
+                                </td>
+
+                                <!-- Actions -->
+                                <td>
+                                    <a th:href="@{/admin/order/edit/{id}(id=${order.id})}"
+                                        class="btn btn-sm btn-warning">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+
+                                    <a th:href="@{/admin/order/delete/{id}(id=${order.id})}"
+                                        class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- Pagination -->
+                    <nav th:if="${totalPages > 1}">
+                        <ul class="pagination">
+                            <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                                <a class="page-link" th:href="@{/admin/order/index(page=${currentPage-1})}">Previous</a>
+                            </li>
+                            <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages-1)}"
+                                th:classappend="${i == currentPage} ? 'active'">
+                                <a class="page-link" th:href="@{/admin/order/index(page=${i})}" th:text="${i+1}">1</a>
+                            </li>
+                            <li class="page-item" th:classappend="${currentPage == totalPages-1} ? 'disabled'">
+                                <a class="page-link" th:href="@{/admin/order/index(page=${currentPage+1})}">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

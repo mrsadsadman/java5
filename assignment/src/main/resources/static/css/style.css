@@ -1,0 +1,194 @@
+/* ===============================
+   GLOBAL STYLING
+================================= */
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f4f6f9;
+    color: #2c3e50;
+}
+
+a {
+    text-decoration: none;
+}
+
+* {
+    transition: all 0.2s ease-in-out;
+}
+
+/* ===============================
+   NAVBAR
+================================= */
+
+.navbar {
+    background: linear-gradient(90deg, #111, #1c1c1c);
+    padding: 12px 0;
+    font-size: 15px;
+}
+
+.navbar-brand {
+    font-weight: 600;
+    font-size: 20px;
+    letter-spacing: 0.5px;
+}
+
+.nav-link {
+    color: #ddd !important;
+    margin: 0 6px;
+}
+
+.nav-link:hover {
+    color: #ffc107 !important;
+}
+
+.nav-link.active {
+    color: #ffc107 !important;
+    font-weight: 600;
+}
+
+/* ===============================
+   SEARCH BAR
+================================= */
+
+.input-group input {
+    border-radius: 50px 0 0 50px;
+    border: 1px solid #ddd;
+}
+
+.input-group input:focus {
+    box-shadow: none;
+    border-color: #ffc107;
+}
+
+.input-group button {
+    border-radius: 0 50px 50px 0;
+}
+
+/* ===============================
+   DROPDOWN
+================================= */
+
+.dropdown-menu {
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item {
+    font-size: 14px;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+    color: #ffc107;
+}
+
+/* ===============================
+   ALERTS
+================================= */
+
+.alert {
+    border-radius: 12px;
+    font-weight: 500;
+}
+
+/* ===============================
+   MAIN CONTENT
+================================= */
+
+main {
+    min-height: 65vh;
+}
+
+.card {
+    border-radius: 16px;
+    border: none;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.card:hover {
+    transform: translateY(-3px);
+}
+
+/* ===============================
+   BUTTONS
+================================= */
+
+.btn {
+    border-radius: 50px;
+    font-weight: 500;
+    padding: 8px 18px;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    border: none;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+}
+
+/* ===============================
+   FOOTER
+================================= */
+
+footer {
+    background: #111;
+    font-size: 14px;
+}
+
+footer h5 {
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+footer a {
+    transition: 0.2s;
+}
+
+footer a:hover {
+    color: #ffc107 !important;
+}
+
+footer .text-white-50 {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+footer hr {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ===============================
+   SOCIAL ICONS
+================================= */
+
+footer i {
+    font-size: 16px;
+}
+
+footer a i:hover {
+    transform: scale(1.2);
+}
+
+/* ===============================
+   BACK TO TOP BUTTON
+================================= */
+
+#backToTop {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* ===============================
+   RESPONSIVE
+================================= */
+
+@media (max-width: 992px) {
+    .navbar .d-flex {
+        width: 100% !important;
+        margin-top: 10px;
+    }
+}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::section})}">
+
+<head>
+    <title>Home - ABC Shop</title>
+</head>
+
+<body>
+    <section>
+        <div th:fragment="content">
+            <h1 class="display-4 mb-4">Welcome to ABC Shop</h1>
+
+            <!-- New Products -->
+            <h2 class="mb-3"><i class="fas fa-star text-warning"></i> New Arrivals</h2>
+            <div class="row row-cols-1 row-cols-md-4 g-4 mb-5">
+                <div class="col" th:each="product : ${newProducts}">
+                    <div class="card h-100 shadow-sm">
+                        <div
+                            style="height:200px; display:flex; align-items:center; justify-content:center; background:#f8f9fa; position:relative;">
+
+                            <!-- Image -->
+                            <img th:if="${product.image != null and product.image != ''}" th:src="${product.image}"
+                                class="img-fluid" style="max-height:100%; object-fit:cover;"
+                                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+
+                            <!-- Icon fallback -->
+                            <div th:if="${product.image != null and product.image != ''}"
+                                style="display:none; align-items:center; justify-content:center; position:absolute; inset:0;">
+                                <i class="fa-solid fa-box-open fa-3x text-secondary"></i>
+                            </div>
+
+                            <!-- Icon when image is null -->
+                            <i th:if="${product.image == null or product.image == ''}"
+                                class="fa-solid fa-box-open fa-3x text-secondary"></i>
+
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${product.name}">Product Name</h5>
+                            <p class="card-text text-danger fw-bold"
+                                th:text="${#numbers.formatDecimal(product.price * (1 - product.discount/100), 1, 'COMMA', 2, 'POINT')} + ' VND'">
+                                Price</p>
+                        </div>
+                        <div class="card-footer bg-white border-0">
+                            <a th:href="@{/product/detail/{id}(id=${product.id})}"
+                                class="btn btn-outline-primary w-100">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Discounted Products -->
+            <h2 class="mb-3"><i class="fas fa-tags text-danger"></i> Hot Discounts</h2>
+            <div class="row row-cols-1 row-cols-md-4 g-4">
+                <div class="col" th:each="product : ${discountProducts}">
+                    <div class="card h-100 shadow-sm border-danger">
+                        <div class="position-absolute top-0 end-0 bg-danger text-white px-2 py-1 rounded-bl"
+                            th:text="'-' + ${product.discount} + '%'">-10%</div>
+                        <div
+                            style="height:200px; display:flex; align-items:center; justify-content:center; background:#f8f9fa; position:relative;">
+
+                            <!-- Image -->
+                            <img th:if="${product.image != null and product.image != ''}" th:src="${product.image}"
+                                class="img-fluid" style="max-height:100%; object-fit:cover;"
+                                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+
+                            <!-- Icon fallback -->
+                            <div th:if="${product.image != null and product.image != ''}"
+                                style="display:none; align-items:center; justify-content:center; position:absolute; inset:0;">
+                                <i class="fa-solid fa-box-open fa-3x text-secondary"></i>
+                            </div>
+
+                            <!-- Icon when image is null -->
+                            <i th:if="${product.image == null or product.image == ''}"
+                                class="fa-solid fa-box-open fa-3x text-secondary"></i>
+
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${product.name}">Product Name</h5>
+                            <p class="card-text">
+                                <span class="text-decoration-line-through text-muted me-2"
+                                    th:text="${#numbers.formatDecimal(product.price, 1, 'COMMA', 2, 'POINT')} + ' VND'">Original</span>
+                                <span class="text-danger fw-bold"
+                                    th:text="${#numbers.formatDecimal(product.price * (1 - product.discount/100), 1, 'COMMA', 2, 'POINT')} + ' VND'">Discounted</span>
+                            </p>
+                        </div>
+                        <div class="card-footer bg-white border-0">
+                            <a th:href="@{/product/detail/{id}(id=${product.id})}"
+                                class="btn btn-outline-danger w-100">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

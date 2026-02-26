@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(content=~{::content})}">
+
+<head>
+    <title>Shopping Cart - ABC Shop</title>
+</head>
+
+<body>
+
+    <div th:fragment="content">
+
+        <h1 class="mb-4">
+            <i class="fas fa-shopping-cart"></i> Your Cart
+        </h1>
+
+        <!-- EMPTY CART -->
+        <div th:if="${items == null or #maps.isEmpty(items)}" class="alert alert-info">
+            <i class="fas fa-info-circle"></i>
+            Your cart is empty.
+            <a th:href="@{/}" class="alert-link">Continue shopping</a>.
+        </div>
+
+        <!-- CART TABLE -->
+        <div th:if="${items != null and not #maps.isEmpty(items)}">
+            <form th:action="@{/cart/update}" method="post">
+
+                <table class="table table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Subtotal</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <!-- IMPORTANT: product + qty phải ở TR -->
+                        <tr th:each="entry : ${items}" th:with="product=${entry.key}, qty=${entry.value}">
+
+                            <!-- PRODUCT -->
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <img th:if="${product.image != null}" th:src="@{'/uploads/' + ${product.image}}"
+                                        width="50" class="me-2" alt="">
+                                    <span th:text="${product.name}">Product</span>
+                                </div>
+                            </td>
+
+                            <!-- PRICE -->
+                            <td th:text="${#numbers.formatDecimal(
+                                    product.price * (1 - product.discount/100),
+                                    1,'COMMA',0,'POINT')} + ' VND'">
+                                100,000 VND
+                            </td>
+
+                            <!-- QUANTITY -->
+                            <td>
+                                <input type="number" th:name="'qty_' + ${product.id}" th:value="${qty}" min="1"
+                                    th:max="${product.quantity}" class="form-control" style="width:80px;">
+                            </td>
+
+                            <!-- SUBTOTAL -->
+                            <td th:text="${#numbers.formatDecimal(
+                                    product.price * (1 - product.discount/100) * qty,
+                                    1,'COMMA',0,'POINT')} + ' VND'">
+                                200,000 VND
+                            </td>
+
+                            <!-- REMOVE -->
+                            <td>
+                                <a th:href="@{/cart/remove/{id}(id=${product.id})}" class="btn btn-danger btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+
+                        </tr>
+                    </tbody>
+
+                    <tfoot>
+                        <tr class="fw-bold">
+                            <td colspan="3" class="text-end">Total:</td>
+                            <td th:text="${#numbers.formatDecimal(total,1,'COMMA',0,'POINT')} + ' VND'">
+                                300,000 VND
+                            </td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+
+                </table>
+
+                <!-- BUTTONS -->
+                <div class="d-flex justify-content-between">
+                    <a th:href="@{/}" class="btn btn-primary">
+                        <i class="fas fa-arrow-left"></i> Continue Shopping
+                    </a>
+
+                    <div>
+                        <button type="submit" class="btn btn-warning">
+                            <i class="fas fa-sync-alt"></i> Update Cart
+                        </button>
+
+                        <a th:href="@{/cart/clear}" class="btn btn-secondary">
+                            <i class="fas fa-eraser"></i> Clear Cart
+                        </a>
+
+                        <a th:href="@{/order/checkout}" class="btn btn-success">
+                            <i class="fas fa-credit-card"></i> Checkout
+                        </a>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
