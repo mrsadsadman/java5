@@ -8,27 +8,29 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Data
 @Entity
 @Table(name = "Orders")
+@Data
 public class Order {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "order_date")
-    private Date orderDate = new Date();
+    private Date orderDate;
 
     private String address;
     private String phone;
+
+    @Column(name = "total_amount")
     private Double totalAmount;
-    private String status = "Pending";
+
+    private String status;
     private String notes;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)

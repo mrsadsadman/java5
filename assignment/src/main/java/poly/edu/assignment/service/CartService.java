@@ -67,7 +67,6 @@ public class CartService {
     }
 
     public boolean isEmpty() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isEmpty'");
+        return getCart().isEmpty();
     }
 }
